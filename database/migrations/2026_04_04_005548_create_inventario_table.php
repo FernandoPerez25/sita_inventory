@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('serial_number')->nullable();
             $table->string('sita_asset_tag')->nullable();
             $table->string('po_number')->nullable();
-            $table->boolean('gap_active')->default(0);
+            $table->string('gap_active')->nullable();
             $table->string('nodename')->nullable();
             $table->text('comentarios')->nullable();
             $table->string('qr_code')->nullable();
