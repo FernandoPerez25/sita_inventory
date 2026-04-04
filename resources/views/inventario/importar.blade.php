@@ -215,7 +215,7 @@
                 <tbody>
                     @forelse($importaciones as $imp)
                     <tr>
-                        <td style="font-family:'Source Code Pro',monospace;font-size:0.75rem">{{ $imp->created_at->format('d/m/Y H:i') }}</td>
+                        <td style="font-family:'Source Code Pro',monospace;font-size:0.75rem">{{ $imp->created_at?->format('d/m/Y H:i') ?? '—' }}</td>
                         <td><span class="badge badge-spare">{{ $imp->metodo }}</span></td>
                         <td style="font-size:0.78rem;color:var(--sita-muted)">{{ $imp->archivo_nombre ?? '—' }}</td>
                         <td style="font-family:'Source Code Pro',monospace;font-size:0.82rem">{{ $imp->total_registros }}</td>
