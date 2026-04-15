@@ -142,16 +142,20 @@
             <div class="card-body" style="text-align:center;padding:1.5rem">
                 @if($inventario->qr_code)
                 <div style="background:#fff;padding:12px;border-radius:6px;display:inline-block;margin-bottom:1rem">
-                    {!! $imagenQr ?? '<p style="color:#000;font-size:0.8rem;padding:2rem">Generando QR...</p>' !!}
+                    <img src="{{ route('inventario.qr', $inventario) }}"
+                        alt="QR {{ $inventario->serial_number }}"
+                        width="200" height="200"
+                        style="display:block">
                 </div>
                 <div style="font-family:'Source Code Pro',monospace;font-size:0.7rem;color:var(--sita-muted);word-break:break-all;margin-bottom:1rem">
                     {{ $inventario->qr_code }}
                 </div>
-                <a href="{{ route('inventario.qr', $inventario) }}" class="btn btn-ghost btn-sm" style="width:100%;justify-content:center">
+                <a href="{{ route('inventario.qr', $inventario) }}" class="btn btn-ghost btn-sm"
+                    style="width:100%;justify-content:center" download>
                     <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                     </svg>
-                    Imprimir QR
+                    Descargar QR
                 </a>
                 @else
                 <p style="color:var(--sita-muted);font-size:0.82rem;margin-bottom:1rem">QR no generado</p>
@@ -201,19 +205,3 @@
     </div>
 </div>
 @endsection
-
-@push('scripts')
-<script>
-    // Mostrar QR inline si hay imagen base64
-    @if(isset($imagenQr) && $imagenQr)
-    const qrContainer = document.querySelector('.card .card-body div[style*="background:#fff"]');
-    if (qrContainer) {
-        const img = document.createElement('img');
-        img.src = 'data:image/png;base64,{{ base64_encode($imagenQr) }}';
-        img.style.cssText = 'width:200px;height:200px;display:block';
-        qrContainer.innerHTML = '';
-        qrContainer.appendChild(img);
-    }
-    @endif
-</script>
-@endpush
